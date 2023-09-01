@@ -39,7 +39,7 @@ Route::group(['prefix' => ''], function () {
 Route::prefix('/v2/coin/')->middleware(['auth'])->group(function (){
     Route::get('/user', [UserController::class, 'respond']);
 });
-Route::prefix('/v2/authorize')->middleware(['auth'])->group(function (){
+Route::prefix('/v2/authorize')->middleware(['throttle'])->group(function (){
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });
