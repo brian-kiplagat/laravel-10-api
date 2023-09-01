@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,10 @@ Route::group(['prefix' => ''], function () {
 
 
 });
-Route::prefix('/api/coin/v2')->middleware(['auth'])->group(function (){
-    Route::get('/btc', [Controller::class, 'index']);
+Route::prefix('/v2/coin/')->middleware(['auth'])->group(function (){
+    Route::get('/user', [UserController::class, 'respond']);
+});
+Route::prefix('/v2/authorize')->middleware(['auth'])->group(function (){
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
