@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     }
 
-    public function register(Request $request)
+    public function createAccount(Request $request)
     {
         try {
 

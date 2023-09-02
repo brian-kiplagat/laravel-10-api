@@ -34,12 +34,12 @@ Route::group(['prefix' => ''], function () {
 });
 Route::prefix('/v2/blog/')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/post', [PostController::class, 'createPost']);
-    Route::get('/blog/{id}', [PostController::class, 'getPost']);
-    Route::patch('/update/{id}', [PostController::class, 'updatePost']);
+    Route::get('/find/{id}', [PostController::class, 'getPost']);
+    Route::patch('/update', [PostController::class, 'updatePost']);
     Route::delete('/remove/{id}', [PostController::class, 'deletePost']);
 
 });
 Route::prefix('/v2/authorize')->middleware(['throttle'])->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/register', [AuthController::class, 'createAccount']);
 });
