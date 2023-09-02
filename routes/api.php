@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::group(['prefix' => ''], function () {
     Route::get('/', function () {
         return Response()->json([
@@ -32,14 +28,18 @@ Route::group(['prefix' => ''], function () {
 
     });
 
-    Route::get('/btc', [Controller::class, 'index']);
+    Route::get('/test', [Controller::class, 'index']);
 
 
 });
-Route::prefix('/v2/coin/')->middleware(['auth'])->group(function (){
-    Route::get('/user', [UserController::class, 'respond']);
+Route::prefix('/v2/blog/')->middleware(['auth:sanctum'])->group(function () {
+    Route::post('/post', [PostController::class, 'createPost']);
+    Route::get('/blog/{id}', [PostController::class, 'getPost']);
+    Route::patch('/update/{id}', [PostController::class, 'updatePost']);
+    Route::delete('/remove/{id}', [PostController::class, 'deletePost']);
+
 });
-Route::prefix('/v2/authorize')->middleware(['throttle'])->group(function (){
+Route::prefix('/v2/authorize')->middleware(['throttle'])->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });

@@ -14,22 +14,21 @@ return new class extends Migration
         Schema::create('wallet', function (Blueprint $table) {
             $table->id();
             $table->string('username', 255)->default('User123222');
-            $table->string('email', 255);
+            $table->string('email', 255)->nullable(false);
             $table->decimal('balance', 16, 8)->default(0.00000000);
             $table->string('wallet', 255)->default('none');
             $table->string('geolocation', 255)->default('none');
-            $table->longText('walletId')->nullable();
             $table->string('ip', 255)->default('none');
-            $table->longText('password')->nullable();
+            $table->longText('password')->nullable(false);
             $table->string('about', 255)->default('No about yet');
             $table->timestamps();
             $table->string('currency', 50)->default('USD');
             $table->string('profile_link', 255)->default('https://api.coinpes.com/storage/mailtemplates/images/avatar.webp');
             $table->string('country_name', 50)->default('NA');
-            $table->string('detected_loc', 255);
-            $table->string('detected_ip', 255);
-            $table->string('detected_name', 255);
-            $table->string('wallet_id', 255);
+            $table->string('detected_loc', 255)->default('NA');
+            $table->string('detected_ip', 255)->default('NA');
+            $table->string('detected_name', 255)->default('NA');
+            $table->string('wallet_id', 255)->nullable(false);
 
             $table->engine = 'MyISAM';
             $table->bigIncrements('id')->change();
